@@ -1903,7 +1903,7 @@ namespace LeagueSharp.Common
             double k;
             if (magicResist < 0)
             {
-                k = 2 - 100 / (100 - magicResist);
+                k = 2 - 100 / (100 - Math.Max(target.SpellBlock, magicResist));
             }
             else
             {
@@ -1923,13 +1923,6 @@ namespace LeagueSharp.Common
             double armorPenPercent = source.PercentArmorPenetrationMod;
             double armorPenFlat = source.FlatArmorPenetrationMod;
 
-            //Minions return wrong percent values.
-            if (source is Obj_AI_Minion)
-            {
-                armorPenFlat = 0;
-                armorPenPercent = 1;
-            }
-
             //Turrets passive.
             if (source is Obj_AI_Turret)
             {
@@ -1942,7 +1935,7 @@ namespace LeagueSharp.Common
             double k;
             if (armor < 0)
             {
-                k = 2 - 100 / (100 - armor);
+                k = 2 - 100 / (100 - Math.Max(target.Armor, armor));
             }
             else
             {
